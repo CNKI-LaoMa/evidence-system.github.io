@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="generator" content="Asciidoctor 1.5.6.1">
+		<title>User</title>
+		<link rel="stylesheet" href="./css/openSans.css">
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body class="book toc2 toc-left">
+		<div id="header">
+			<div id="toc" class="toc2">
+				<div id="toctitle">Table of Contents</div>
+				<ul class="sectlevel2">
+					<li><a href="#_description">一、文档说明</a></li>
+					<li><a href="#_applicable">二、适用对象说明</a></li>
+					<li><a href="#_glossary">三、名词解释</a></li>
+					<li><a href="#_system_block_diagram">四、系统框图</a></li>
+					<li><a href="#_data_field">五、数据字段</a></li>
+					<ul class="sectlevel3">
+						<li><a href="#_data_field_item_overall_structure">1.条目总体结构</a></li>
+						<li><a href="#_data_field_general_info">2.一般信息(general_info)</a></li>
+						<li><a href="#_data_field_bib_info">3.文献基本数据(bib_info)</a></li>
+						<li><a href="#_data_field_clinic_info">4.临床资料(clinic_info)</a></li>
+						<li><a href="#_data_field_trial_design">5.试验设计(trial_design)</a></li>
+						<li><a href="#_data_field_grouping">6.分组情况(grouping)</a></li>
+						<li><a href="#_data_field_interventions">7.干预措施(interventions)</a></li>
+						<li><a href="#_data_field_results">8.结局指标(results)</a></li>
+					</ul>
+					<li><a href="#_indicators">六、病种和结局指标</a></li>
+					<li><a href="#_abnormal_events">七、不良事件(abnormal_events)</a></li>
+					<li><a href="#_specification">八、响应格式规范</a>
+						<ul class="sectlevel3">
+							<li><a href="#_specification_injection">1.注入返回格式</a></li>
+							<li><a href="#_specification_return">2.查询返回格式</a></li>
+							<li><a href="#_specification_error">3.错误响应输出格式</a></li>
+						</ul>
+					</li>
+					<li><a href="#_interface_specification">九、接口规范细则</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="content">
+			<div class="sect1">
+				<h1><strong>中医药优势病种<br /> 智能证据系统接口规范文档</strong></h1>
+				<div class="paragraph">
+					<p>
+						版本：2020-02-06 V1<br />
+						上海交通大学、上海中医药大学、广东省中医院、北京中医药大学等<br />
+						©版权所有，2019
+					</p>
+				</div>
+			</div>
+
+			<div class="sect2">
+				<h3 id="_description">一、文档说明</h3>
+				<div class="paragraph">
+					<p>本文档定义“中医药优势病种证据系统的智能化构建和应用示范”项目中所需的软件系统接口规范。</p>
+				</div>
+			</div>
+
+			<div class="sect2">
+				<h3 id="_applicable">二、适用对象说明</h3>
+				<div class="paragraph">
+					<ul>
+						<li>本规范可用于开发与智能证据系统的对接的应用程序。</li>
+						<li>本规范适用于向智能证据系统注入或者查询文本数据结果。</li>
+						<li>本规范所定义的接口，均采用REST基础的接口规范，所有请求统一通过HTTPS传输。</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="sect2">
+				<h3 id="_glossary">三、名词解释</h3>
+				<div class="paragraph">
+					<p>可选字段：在向数据库注入条目时，该字段可以不存在</p>
+					<p>必须字段：在向数据库注入条目时，该字段必须存在，否则将被拒绝</p>
+					<p>appid：智能证据系统为接入的应用提供的唯一标识</p>
+					<p>appkey：智能证据系统为接入的应用提供的共享密钥</p>
+					<p>appsecret：智能证据系统为接入的应用提供的密码</p>
+					<p>...</p>
+				</div>
+			</div>
+
+			<div class="sect2">
+				<h3 id="_system_block_diagram">四、系统框图</h3>
+				<div class="imageblock">
+					<img src="./img/system_block_diagram.png" />
+				</div>
+				<div class="paragraph">
+					<p>
+						本文档定义如图所示接口。具体接口规范，将在下一部分中详述。
+					</p>
+					<ul>
+						<li>接口1: 原始数据库注入接口 该接口用于向原始数据库注入数据库条目。</li>
+						<li>接口2: 原始数据库检索接口 该接口用于查询原始数据库中的条目。</li>
+						<li>接口3: 证据数据库检索接口 该接口用于查询证据库中的条目。</li>
+					</ul>
+				</div>
+			</div>
+
+		<div class="sect2">
+					<h3 id="_data_field">五、数据字段</h3>
+					<div class="sect3">
+						<h4 id="_data_field_item_overall_structure">1.条目总体结构</h4>
+						<div class="paragraph">
+							<p>一个数据库条目，应该包括如下内容：一般信息(general_info)、文献基本数据(bib_info)、临床资料(clinic_info)、分组信息(grouping_info)、干预措施(interventions)、结局指标(results)等。而每一项内容又包含若干个字段。具体将在下文详述。</p>
+							<p>
+								一个条目的JSON示例：
+							</p>
+							<div class="listingblock">
+								<div class="content">
+									<pre class="highlight nowrap"><code class="language-http" data-lang="http">{
+			general_info:
+			{
+				id: 10001,
+				name: “一篇临床文献”,
+				status: 1,
+				create_time: 2019-01-02,
+				edit_time: 2020-02-10,
+				editor: “author1”,
+				reviewer: “reviewer1”
+			},
+			bib_info:{
+				…
+			},
+			clinic_info:{
+				…
+			},
+			Trial_design:{
+				…
+			},
+			grouping_info:{
+				…
+			},
+			interventions: {
+				#array of intervention
+			},
+			results:{ 
+				#array of results
+			}
+			abnormal_events_int:{
+				#array of abnormal_event
+			}
+			abnormal_events_ctr:{
+				#array of abnormal_event
+			}
+		}</code></pre>
+								</div>
+							</div>
+						</div>
+					</div>
+		
+					<div class="sect3">
+						<h4 id="_data_field_general_info">2.一般信息(general_info)</h4>
+						<table class="tableblock frame-all grid-all spread">
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 18%;">
+								<col style="width: 15%;">
+								<col style="width: 12%;">
+								<col style="width: 20%;">
+								<col style="width: *;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="tableblock halign-left valign-top">编号</th>
+									<th class="tableblock halign-left valign-top">名称</th>
+									<th class="tableblock halign-left valign-top">字段名称</th>
+									<th class="tableblock halign-left valign-top">是否必须项</th>
+									<th class="tableblock halign-left valign-top">类型</th>
+									<th class="tableblock halign-left valign-top">说明</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"><code>1</code></p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">编号</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">id</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">INTEGET</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">auto_increment</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"><code>2</code></p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">证据名</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">name</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR (5, 20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"></p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"><code>3</code></p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">状态</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">status</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">1: active<br />2: obsolete</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"><code>4</code></p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">创建时间</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">create_time</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">DATETIME</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">YYYY-mm-dd H:i:s</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"><code>5</code></p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">最后编辑时间</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">edit_time</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">DATETIME</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">YYYY-mm-dd H:i:s</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"><code>6</code></p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">编辑者</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">editor</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR (1, 20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"></p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"><code>7</code></p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">审核者</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">reviewer</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR (1, 20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock"></p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="paragraph">
+							一个JSON示例：
+						</div>
+						<div class="listingblock">
+							<div class="content">
+								<pre class="highlight nowrap"><code class="language-http" data-lang="http">{
+			id: 10001,
+			name: “一篇临床文献”,
+			status: 1,
+			create_time: 2019-01-02,
+			edit_time: 2020-02-10,
+			editor: “author1”,
+			reviewer: “reviewer1”
+		}</code></pre>
+							</div>
+						</div>
+					</div>
+		
+					<div class="sect3">
+						<h4 id="_data_field_bib_info">3.文献基本数据(bib_info)</h4>
+						<table class="tableblock frame-all grid-all spread">
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 18%;">
+								<col style="width: 15%;">
+								<col style="width: 12%;">
+								<col style="width: 20%;">
+								<col style="width: *;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="tableblock halign-left valign-top">编号</th>
+									<th class="tableblock halign-left valign-top">名称</th>
+									<th class="tableblock halign-left valign-top">字段名称</th>
+									<th class="tableblock halign-left valign-top">是否必须项</th>
+									<th class="tableblock halign-left valign-top">类型</th>
+									<th class="tableblock halign-left valign-top">说明</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">1</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">编号</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">id</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">-</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">auto_increment</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">2</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">文献类型</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">type</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">1:
+											journal</p>
+										<p class="tableblock">2:
+											conference</p>
+										<p class="tableblock">3:
+											other</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">3</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">DOI编码</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">doi</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 40)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">4</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">标题</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">title</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 100)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">5</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">出版日期</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">pub_date</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">DATE</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">6</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">出版语言</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">language</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">7</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">期刊会议</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">publication</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 50)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">8</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">卷号</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">volumn</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 50)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">9</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">期号</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">issue</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 50)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">10</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">页码</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">pages</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 50)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">11</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">作者</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">authors</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 100)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">12</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">作者机构</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">affiliations</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(1, 100)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">13</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">作者联系方式</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">contact</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(0, 100)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">14</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">项目资助</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">fund</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(0, 100)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">15</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">摘要</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">abstract</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(0, 1000)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">16</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">全文链接</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">fulltext_link</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(0, 150)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">17</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">NCT编号</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">NCT_number</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">VARCHAR
+											(0, 20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p class="tableblock">&nbsp;</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		
+					<div class="sect3">
+						<h4 id="_data_field_clinic_info">4.临床资料(clinic_info) </h4>
+						<table class="tableblock frame-all grid-all spread">
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 18%;">
+								<col style="width: 15%;">
+								<col style="width: 12%;">
+								<col style="width: 20%;">
+								<col style="width: *;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="tableblock halign-left valign-top">编号</th>
+									<th class="tableblock halign-left valign-top">名称</th>
+									<th class="tableblock halign-left valign-top">字段名称</th>
+									<th class="tableblock halign-left valign-top">是否必须项</th>
+									<th class="tableblock halign-left valign-top">类型</th>
+									<th class="tableblock halign-left valign-top">说明</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>1</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>中医诊断</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>tcm_disease</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1, 20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>#标准化</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>2</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>中医证型</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>tcm_subtype</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0, 20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>#标准化</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>3</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>西医诊断</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>wm_disease</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1, 20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>#标准化</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>4</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>主诉症状</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>complaint</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1,
+											50)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>5</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>其他症状</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>symptoms</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0,
+											200)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>6</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>中医诊断参考依据</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>tcm_diagref</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0,
+											50)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>7</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>西医诊断参考依据</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>wm_diagref</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0,
+											50)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>8</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>总病例数</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>num_total</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>9</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>男性病例数</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>num_male</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>10</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>女性病例数</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>num_female</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>11</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>年龄区间-低值</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>age_rnglow</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>12</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>年龄区间-高值</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>age_rnghigh</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>13</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>年龄均值</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>age_mean</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>14</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>年龄标准差</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>age_sd</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>15</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>病程区间-低值</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>history_rnglow</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>16</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>病程区间-高值</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>history_rnghigh</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>17</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>病程均值</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>history_mean</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>18</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>病程标准差</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>history_sd</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>19</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>纳入标准</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>inc_criteria</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0,
+											200)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>20</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>排除标准</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>exc_criteria</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0,
+											200)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>21</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>特殊人群</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>spec_group</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0,
+											20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+		
+					<div class="sect3">
+						<h4 id="_data_field_trial_design">5.试验设计(trial_design)</h4>
+						<table class="tableblock frame-all grid-all spread">
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 18%;">
+								<col style="width: 15%;">
+								<col style="width: 12%;">
+								<col style="width: 20%;">
+								<col style="width: *;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th class="tableblock halign-left valign-top">编号</th>
+									<th class="tableblock halign-left valign-top">名称</th>
+									<th class="tableblock halign-left valign-top">字段名称</th>
+									<th class="tableblock halign-left valign-top">是否必须项</th>
+									<th class="tableblock halign-left valign-top">类型</th>
+									<th class="tableblock halign-left valign-top">说明</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>1</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>试验类型</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>type</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1,
+											20)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>#标准化</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>2</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>盲法设计</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>blindness</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1,
+											10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>#标准化</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>3</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>试验场所</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>setting</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(0,
+											100)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>4</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>观察时间</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>duration</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>N</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>INTEGER</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>5</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>ROB随机序列</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>rob_random</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1, 10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>6</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>ROB分配隐藏</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>rob_allocation</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1, 10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>7</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>ROB盲法</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>rob_blinding</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1,
+											10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>8</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>ROB缺失数据</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>rob_incomplete</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1,
+											10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>9</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>ROB选择性报道</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>rob_selective</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1,
+											10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+								<tr>
+									<td class="tableblock halign-left valign-top">
+										<p>10</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>ROB其它</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>rob_other</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>Y</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>VARCHAR
+											(1,
+											10)</p>
+									</td>
+									<td class="tableblock halign-left valign-top">
+										<p>&nbsp;</p>
+									</td>
+								</tr>
+						</table>
+					</div>
+				</div>
+		
+					<div class="sect3">
+					<h4 id="_data_field_grouping">6.分组情况(grouping)</h4>
+					<table class="tableblock frame-all grid-all spread">
+						<colgroup>
+							<col style="width: 10%;">
+							<col style="width: 18%;">
+							<col style="width: 15%;">
+							<col style="width: 12%;">
+							<col style="width: 20%;">
+							<col style="width: *;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="tableblock halign-left valign-top">编号</th>
+								<th class="tableblock halign-left valign-top">名称</th>
+								<th class="tableblock halign-left valign-top">字段名称</th>
+								<th class="tableblock halign-left valign-top">是否必须项</th>
+								<th class="tableblock halign-left valign-top">类型</th>
+								<th class="tableblock halign-left valign-top">说明</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>1</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组名</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>name</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(1,
+										10)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>2</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组别</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>class</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(1,
+										10)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>3</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组病例数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>num_total</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>4</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组男性病例数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>num_male</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>5</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组女性病例数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>num_female</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>6</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组年龄区间-低值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>age_rnglow</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>7</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组年龄区间-高值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>age_rnghigh</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>8</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组年龄均值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>age_mean</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>9</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组年龄标准差</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>age_sd</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>10</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组病程区间-低值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>history_rnglow</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>11</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组病程区间-高值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>history_rnghigh</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>12</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组病程均值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>history_mean</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>13</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>组病程标准差</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>history_sd</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		
+					<div class="sect3">
+					<h4 id="_data_field_interventions">7.干预措施(interventions)</h4>
+					<table class="tableblock frame-all grid-all spread">
+						<colgroup>
+							<col style="width: 10%;">
+							<col style="width: 18%;">
+							<col style="width: 15%;">
+							<col style="width: 12%;">
+							<col style="width: 20%;">
+							<col style="width: *;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="tableblock halign-left valign-top">编号</th>
+								<th class="tableblock halign-left valign-top">名称</th>
+								<th class="tableblock halign-left valign-top">字段名称</th>
+								<th class="tableblock halign-left valign-top">是否必须项</th>
+								<th class="tableblock halign-left valign-top">类型</th>
+								<th class="tableblock halign-left valign-top">说明</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>1</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>干预方法</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>treatment</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(1,
+										50)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>#标准化</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>2</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>干预类型</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>treat_class</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(1,
+										20)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>干预类型</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>3</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>剂量</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>dosage</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(1, 20)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>剂量</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>4</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>剂型</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>dosage_form</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(0,
+										10)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>剂型</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>5</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>治疗频率</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>dosage_freq</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(0,
+										20)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>治疗频率</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>6</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>疗程</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>period</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>疗程</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>7</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>操作方法</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>method</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(0,
+										1000)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>操作方法</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		
+					<div class="sect3">
+					<h4 id="_data_field_results">8.结局指标(results)</h4>
+					<table class="tableblock frame-all grid-all spread">
+						<colgroup>
+							<col style="width: 10%;">
+							<col style="width: 18%;">
+							<col style="width: 15%;">
+							<col style="width: 12%;">
+							<col style="width: 20%;">
+							<col style="width: *;">
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="tableblock halign-left valign-top">编号</th>
+								<th class="tableblock halign-left valign-top">名称</th>
+								<th class="tableblock halign-left valign-top">字段名称</th>
+								<th class="tableblock halign-left valign-top">是否必须项</th>
+								<th class="tableblock halign-left valign-top">类型</th>
+								<th class="tableblock halign-left valign-top">说明</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>1</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>指标名</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>name</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(1,
+										20)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>#标准化</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>2</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>指标类型</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>type</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR
+										(1,
+										10)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>3</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>观察时间</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>period</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>4</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>负性指标</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>negative_index</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>BOOLEAN</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>5</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>观察例数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>obv_total</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>6</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>观察事件数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>obv_event</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>7</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>观察均值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>obv_mean</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>DECIMAL</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>8</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>观察标准差</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>obv_sd</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>DECIMAL</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>9</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>对照例数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>ctl_total</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>10</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>对照事件数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>ctl_event</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>INTEGER</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>11</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>对照均值</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>ctl_mean</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>DECIMAL</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>12</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>对照标准差</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>ctl_sd</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>Y</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>DECIMAL</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>13</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>指标说明</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>about</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>N</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>VARCHAR(0,1000)</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				
+				</div>
+		
+		<div class="sect2">
+			<h3 id="_indicators">六、病种和结局指标</h3>
+			<div class="sect3">
+				<table class="tableblock frame-all grid-all spread">
+					<colgroup>
+						<col style="width: 10%;">
+						<col style="width: 15%;">
+						<col style="width: 12%;">
+						<col style="width: 12%;">
+						<col style="width: 15%;">
+						<col style="width: 12%;">
+						<col style="width: *;">
+					</colgroup>
+					<thead>
+						<tr>
+							<th class="tableblock halign-left valign-top"></th>
+							<th class="tableblock halign-left valign-top"></th>
+							<th class="tableblock halign-left valign-top">糖尿病</th>
+							<th class="tableblock halign-left valign-top">肥胖症</th>
+							<th class="tableblock halign-left valign-top">风湿性关节炎</th>
+							<th class="tableblock halign-left valign-top"></th>
+							<th class="tableblock halign-left valign-top"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>糖尿病</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>肥胖症</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>风湿性关节炎</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>1</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>空腹血糖</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>2</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>餐后2h血糖</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>3</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>糖化血红蛋白</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>4</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>体重指数</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>5</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>甘油三酯</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>6</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>总胆固醇</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>7</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>低密度脂蛋白</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>8</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>高密度脂蛋白</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>9</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>空腹胰岛素水平</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>10</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>胰岛素抵抗指数</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>11</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>胰岛素敏感指数</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>12</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>空腹0hCP</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>13</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>…</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+
+		<div class="sect2">
+			<h3 id="_abnormal_events">七、不良事件(abnormal_events)</h3>
+			<table class="tableblock frame-all grid-all spread">
+				<colgroup>
+					<col style="width: 10%;">
+					<col style="width: 18%;">
+					<col style="width: 15%;">
+					<col style="width: 12%;">
+					<col style="width: 20%;">
+					<col style="width: *;">
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="tableblock halign-left valign-top">编号</th>
+						<th class="tableblock halign-left valign-top">名称</th>
+						<th class="tableblock halign-left valign-top">字段名称</th>
+						<th class="tableblock halign-left valign-top">是否必须项</th>
+						<th class="tableblock halign-left valign-top">类型</th>
+						<th class="tableblock halign-left valign-top">说明</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="tableblock halign-left valign-top">
+							<p>1</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>名称</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>name</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>Y</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>VARCHAR
+								(1,
+								20)</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>#标准化</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableblock halign-left valign-top">
+							<p>2</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>内容</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>details</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>Y</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>VARCHAR
+								(1,
+								1000)</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>&nbsp;</p>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableblock halign-left valign-top">
+							<p>3</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>其它</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>others</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>N</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>VARCHAR
+								(1, 1000)</p>
+						</td>
+						<td class="tableblock halign-left valign-top">
+							<p>&nbsp;</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		<div class="sect2">
+			<h3 id="_specification">八、响应格式规范</h3>
+			<div class="sect3">
+				<h4 id="_specification_injection">1.注入返回格式</h4>
+				<div class="listingblock">
+					<div class="content">
+						<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 178
+{
+“success”
+}
+</code></pre>
+					</div>
+				</div>
+			</div>
+			<div class="sect3">
+				<h4 id="_specification_return">2.查询返回格式</h4>
+				<div class="listingblock">
+					<div class="content">
+						<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 648
+
+{
+    items: [{
+	general_info:
+	{
+		id: 10001,
+		name: “一篇临床文献”,
+		status: 1,
+		create_time: 2019-01-02,
+		edit_time: 2020-02-10,
+		editor: “author1”,
+		reviewer: “reviewer1”
+	},
+	bib_info:{
+		…
+	},
+	clinic_info:{
+		…
+	},
+	grouping_info:{
+		…
+	},
+	interventions: {
+		…
+	},
+	results:{ 
+		…
+	}
+   	},##第一个条目##
+	{
+	},##第二个条目##
+	{
+	},##第三个条目##
+	…]
+}
+</code></pre>
+					</div>
+				</div>
+
+			</div>
+			<div class="sect3">
+				<h4 id="_specification_error">3.错误响应输出格式</h4>
+				<table class="tableblock frame-all grid-all spread">
+					<colgroup>
+						<col style="width: 25%;">
+						<col style="width: 15%;">
+						<col style="width: 30%;">
+						<col style="width: 30%;">
+
+					</colgroup>
+					<thead>
+						<tr>
+							<th class="tableblock halign-left valign-top">http 返回码</th>
+							<th class="tableblock halign-left valign-top">code</th>
+							<th class="tableblock halign-left valign-top">message</th>
+							<th class="tableblock halign-left valign-top">产生原因</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								401
+							</td>
+							<td class="tableblock halign-left valign-top">
+								-1000
+							</td>
+							<td class="tableblock halign-left valign-top">
+								not authorized
+							</td>
+							<td class="tableblock halign-left valign-top">
+								客户端未授权
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								400
+							</td>
+							<td class="tableblock halign-left valign-top">
+								-1001
+							</td>
+							<td class="tableblock halign-left valign-top">
+								Error parameter
+							</td>
+							<td class="tableblock halign-left valign-top">
+								参数错误
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								400
+							</td>
+							<td class="tableblock halign-left valign-top">
+								-1002
+							</td>
+							<td class="tableblock halign-left valign-top">
+								Mandatory field missing
+							</td>
+							<td class="tableblock halign-left valign-top">
+								必须项缺失, 具体缺失项见message
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								500
+							</td>
+							<td class="tableblock halign-left valign-top">
+								-1003
+							</td>
+							<td class="tableblock halign-left valign-top">
+								Internal server error
+							</td>
+							<td class="tableblock halign-left valign-top">
+								服务器内部错误
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								400
+							</td>
+							<td class="tableblock halign-left valign-top">
+								-1004
+							</td>
+							<td class="tableblock halign-left valign-top">
+								invalid query parameter
+							</td>
+							<td class="tableblock halign-left valign-top">
+								参数无效
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+			</div>
+
+
+		</div>
+		<div class="sect2">
+			<h3 id="_interface_specification">九、接口规范细则</h3>
+			<div class="paragraph">
+				<p>【待完善】</p>
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+				<br />
+			</div>
+		</div>
+		</div>
+		<!-- <div id="footer">
+			<div id="footer-text">
+				Last updated 2020-01-19 17:06:20 CST
+			</div>
+		</div> -->
+	</body>
+</html>
