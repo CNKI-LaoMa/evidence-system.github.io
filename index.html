@@ -5,7 +5,7 @@
 		<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="generator" content="Asciidoctor 1.5.6.1">
-		<title>智能证据系统接口规范文档</title>
+		<title>User</title>
 		<link rel="stylesheet" href="./css/openSans.css">
 		<link rel="stylesheet" href="./css/style.css" />
 	</head>
@@ -114,41 +114,41 @@
 							<div class="listingblock">
 								<div class="content">
 									<pre class="highlight nowrap"><code class="language-http" data-lang="http">{
-			general_info:
-			{
-				id: 10001,
-				name: “一篇临床文献”,
-				status: 1,
-				create_time: 2019-01-02,
-				edit_time: 2020-02-10,
-				editor: “author1”,
-				reviewer: “reviewer1”
-			},
-			bib_info:{
-				…
-			},
-			clinic_info:{
-				…
-			},
-			Trial_design:{
-				…
-			},
-			grouping_info:{
-				…
-			},
-			interventions: {
-				#array of intervention
-			},
-			results:{ 
-				#array of results
-			}
-			abnormal_events_int:{
-				#array of abnormal_event
-			}
-			abnormal_events_ctr:{
-				#array of abnormal_event
-			}
-		}</code></pre>
+	general_info:
+	{
+		id: 10001,
+		name: “一篇临床文献”,
+		status: 1,
+		create_time: 2019-01-02,
+		edit_time: 2020-02-10,
+		editor: “author1”,
+		reviewer: “reviewer1”
+	},
+	bib_info:{
+		…
+	},
+	clinic_info:{
+		…
+	},
+	Trial_design:{
+		…
+	},
+	grouping_info:{
+		…
+	},
+	interventions: {
+		#array of intervention
+	},
+	results:{ 
+		#array of results
+	}
+	abnormal_events_int:{
+		#array of abnormal_event
+	}
+	abnormal_events_ctr:{
+		#array of abnormal_event
+	}
+}</code></pre>
 								</div>
 							</div>
 						</div>
@@ -324,14 +324,14 @@
 						<div class="listingblock">
 							<div class="content">
 								<pre class="highlight nowrap"><code class="language-http" data-lang="http">{
-			id: 10001,
-			name: “一篇临床文献”,
-			status: 1,
-			create_time: 2019-01-02,
-			edit_time: 2020-02-10,
-			editor: “author1”,
-			reviewer: “reviewer1”
-		}</code></pre>
+	id: 10001,
+	name: “一篇临床文献”,
+	status: 1,
+	create_time: 2019-01-02,
+	edit_time: 2020-02-10,
+	editor: “author1”,
+	reviewer: “reviewer1”
+}</code></pre>
 							</div>
 						</div>
 					</div>
@@ -395,12 +395,7 @@
 										<p class="tableblock">INTEGER</p>
 									</td>
 									<td class="tableblock halign-left valign-top">
-										<p class="tableblock">1:
-											journal</p>
-										<p class="tableblock">2:
-											conference</p>
-										<p class="tableblock">3:
-											other</p>
+										<p class="tableblock">1:journal<br/>2:conference<br/>3:other</p>
 									</td>
 								</tr>
 								<tr>
