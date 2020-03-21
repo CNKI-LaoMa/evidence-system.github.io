@@ -31,11 +31,6 @@
 						<li><a href="#_data_field_results">8.结局指标(results)</a></li>
 					</ul>
 					<li><a href="#_indicators">六、病种和结局指标</a></li>
-						<ul class="sectlevel3">
-							<li><a href="#_indicators_obesity">1.肥胖症</a></li>
-							<li><a href="#_indicators_diabetes">2.糖尿病</a></li>
-							<li><a href="#_indicators_ra">3.类风湿性关节炎</a></li>
-						</ul>
 					<li><a href="#_abnormal_events">七、不良事件(abnormal_events)</a></li>
 					<li><a href="#_specification">八、响应格式规范</a>
 						<ul class="sectlevel3">
@@ -2266,866 +2261,335 @@
 				<h3 id="_indicators">六、病种和结局指标</h3>
 				<div class="sect3">
 					<h4 id="_indicators_obesity">1.肥胖症</h4>
-
+						
 					<table class="tableblock frame-all grid-all spread">
 						<colgroup>
-							<col style="width: 20%;">
+							<col style="width: 10%;">
+							<col style="width: 15%;">
+							<col style="width: 12%;">
+							<col style="width: 12%;">
+							<col style="width: 15%;">
+							<col style="width: 12%;">
 							<col style="width: *;">
 						</colgroup>
 						<thead>
 							<tr>
-								<th class="tableblock halign-left valign-top">字段名称</th>
-								<th class="tableblock halign-left valign-top">名称</th>
+								<th class="tableblock halign-left valign-top"></th>
+								<th class="tableblock halign-left valign-top"></th>
+								<th class="tableblock halign-left valign-top">糖尿病</th>
+								<th class="tableblock halign-left valign-top">肥胖症</th>
+								<th class="tableblock halign-left valign-top">风湿性关节炎</th>
+								<th class="tableblock halign-left valign-top"></th>
+								<th class="tableblock halign-left valign-top"></th>
 							</tr>
 						</thead>
-						<tr>
-							<td class="tableblock halign-left valign-top">id</td>
-							<td class="tableblock halign-left valign-top">编号 </td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">author</td>
-							<td class="tableblock halign-left valign-top">第一作者</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">year</td>
-							<td class="tableblock halign-left valign-top">年份 </td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">journal</td>
-							<td class="tableblock halign-left valign-top">期刊 </td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">title</td>
-							<td class="tableblock halign-left valign-top">题名 </td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">er</td>
-							<td class="tableblock halign-left valign-top">有效率</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">efficri</td>
-							<td class="tableblock halign-left valign-top">有效率参考标准</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">enotes</td>
-							<td class="tableblock halign-left valign-top">其他有效率参考标准</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">ionen</td>
-							<td class="tableblock halign-left valign-top">治疗组有效例数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">conen</td>
-							<td class="tableblock halign-left valign-top">对照组有效例数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">bmi</td>
-							<td class="tableblock halign-left valign-top">体重指数BMI</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">bmiu</td>
-							<td class="tableblock halign-left valign-top">BMI数据类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i1m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组BMI的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i1sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组BMI的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c1m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组BMI的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c1sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组BMI的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i1m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组BMI的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i1sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组BMI的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c1m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组BMI的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c1sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组BMI的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">weight</td>
-							<td class="tableblock halign-left valign-top">体重 </td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">weightu</td>
-							<td class="tableblock halign-left valign-top">体重数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i2m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组体重的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i2sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组体重的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c2m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组体重的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c2sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组体重的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i2m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组体重的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i2sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组体重的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c2m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组体重的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c2sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组体重的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">wc</td>
-							<td class="tableblock halign-left valign-top">腰围 </td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">wcu</td>
-							<td class="tableblock halign-left valign-top">腰围数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i3m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组腰围的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i3sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组腰围的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c3m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组腰围的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c3sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组腰围的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i3m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组腰围的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i3sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组腰围的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c3m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组腰围的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c3sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组腰围的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">whr</td>
-							<td class="tableblock halign-left valign-top">腰臀比</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">whru</td>
-							<td class="tableblock halign-left valign-top">腰臀比数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i4m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组腰臀比的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i4sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组腰臀比的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c4m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组腰臀比的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c4sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组腰臀比的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i4m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组腰臀比的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i4sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组腰臀比的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c4m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组腰臀比的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c4sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组腰臀比的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">fat</td>
-							<td class="tableblock halign-left valign-top">体脂百分比F%</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">fatu</td>
-							<td class="tableblock halign-left valign-top">F%数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i5m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组F%的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i5sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组F%的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c5m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组F%的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c5sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组F%的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i5m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组F%的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i5sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组F%的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c5m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组F%的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c5sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组F%的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">fbg</td>
-							<td class="tableblock halign-left valign-top">空腹血糖</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">fbgu</td>
-							<td class="tableblock halign-left valign-top">空腹血糖数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit6</td>
-							<td class="tableblock halign-left valign-top">空腹血糖计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i6m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组空腹血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i6sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组空腹血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c6m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组空腹血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c6sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组空腹血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i6m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组空腹血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i6sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组空腹血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c6m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组空腹血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c6sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组空腹血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">pbg</td>
-							<td class="tableblock halign-left valign-top">口服葡萄糖耐量试验负荷后2h血糖</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">pbgu</td>
-							<td class="tableblock halign-left valign-top">口服葡萄糖耐量试验负荷后2h血糖数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit7</td>
-							<td class="tableblock halign-left valign-top">口服葡萄糖耐量试验负荷后2h血糖计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i7m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组口服葡萄糖耐量试验负荷后2h血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i7sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组口服葡萄糖耐量试验负荷后2h血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c7m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组口服葡萄糖耐量试验负荷后2h血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c7sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组口服葡萄糖耐量试验负荷后2h血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i7m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组口服葡萄糖耐量试验负荷后2h血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i7sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组口服葡萄糖耐量试验负荷后2h血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c7m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组口服葡萄糖耐量试验负荷后2h血糖的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c7sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组口服葡萄糖耐量试验负荷后2h血糖的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">fins</td>
-							<td class="tableblock halign-left valign-top">空服胰岛素</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">finsu</td>
-							<td class="tableblock halign-left valign-top">空服胰岛素值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit8</td>
-							<td class="tableblock halign-left valign-top">空服胰岛素计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i8m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组空服胰岛素的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i8sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组空服胰岛素的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c8m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组空服胰岛素的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c8sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组空服胰岛素的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i8m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组空服胰岛素的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i8sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组空服胰岛素的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c8m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组空服胰岛素的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c8sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组空服胰岛素的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">ir</td>
-							<td class="tableblock halign-left valign-top">胰岛素抵抗指数HOMA-IR</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">iru</td>
-							<td class="tableblock halign-left valign-top">HOMA-IR数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i9m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组HOMA-IR的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i9sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组HOMA-IR的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c9m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组HOMA-IR的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c9sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组HOMA-IR的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i9m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组HOMA-IR的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i9sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组HOMA-IR的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c9m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组HOMA-IR的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c9sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组HOMA-IR的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">tc</td>
-							<td class="tableblock halign-left valign-top">总胆固醇TC</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">tcu</td>
-							<td class="tableblock halign-left valign-top">TC数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit10</td>
-							<td class="tableblock halign-left valign-top">TC计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i10m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组TC的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i10sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组TC的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c10m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组TC的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c10sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组TC的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i10m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组TC的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i10sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组TC的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c10m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组TC的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c10sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组TC的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">tg</td>
-							<td class="tableblock halign-left valign-top">甘油三酯TG</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">tgu</td>
-							<td class="tableblock halign-left valign-top">TG数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit11</td>
-							<td class="tableblock halign-left valign-top">TG计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i11m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组TG的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i11sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组TG的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c11m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组TG的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c11sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组TG的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i11m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组TG的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i11sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组TG的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c11m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组TG的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c11sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组TG的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">ldl</td>
-							<td class="tableblock halign-left valign-top">低密度脂蛋白</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">ldlu</td>
-							<td class="tableblock halign-left valign-top">低密度脂蛋白数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit12</td>
-							<td class="tableblock halign-left valign-top">低密度脂蛋白计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i12m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组低密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i12sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组低密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c12m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组低密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c12sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组低密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i12m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组低密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i12sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组低密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c12m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组低密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c12sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组低密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">hdl</td>
-							<td class="tableblock halign-left valign-top">高密度脂蛋白</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">hdlu</td>
-							<td class="tableblock halign-left valign-top">高密度脂蛋白数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit13</td>
-							<td class="tableblock halign-left valign-top">高密度脂蛋白计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i13m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组高密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i13sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组高密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c13m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组高密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c13sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组高密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i13m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组高密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i13sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组高密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c13m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组高密度脂蛋白的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c13sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组高密度脂蛋白的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">bp</td>
-							<td class="tableblock halign-left valign-top">血压</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">sbpu</td>
-							<td class="tableblock halign-left valign-top">收缩压数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">sbp</td>
-							<td class="tableblock halign-left valign-top">收缩压计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i14m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组收缩压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i14sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组收缩压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c14m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组收缩压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c14sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组收缩压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i14m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组收缩压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i14sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组收缩压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c14m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组收缩压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c14sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组收缩压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">dbpu</td>
-							<td class="tableblock halign-left valign-top">舒张压数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">dbp</td>
-							<td class="tableblock halign-left valign-top">舒张压计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i15m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组舒张压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i15sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组舒张压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c15m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组舒张压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c15sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组舒张压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i15m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组舒张压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i15sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组舒张压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c15m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组舒张压的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c15sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组舒张压的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">liv</td>
-							<td class="tableblock halign-left valign-top">肝功能</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">outc16</td>
-							<td class="tableblock halign-left valign-top">ALT</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">altu</td>
-							<td class="tableblock halign-left valign-top">ALT数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit16</td>
-							<td class="tableblock halign-left valign-top">ALT计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i16m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组ALT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i16sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组ALT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c16m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组ALT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c16sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组ALT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i16m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组ALT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i16sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组ALT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c16m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组ALT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c16sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组ALT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">outc17</td>
-							<td class="tableblock halign-left valign-top">AST</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">astu</td>
-							<td class="tableblock halign-left valign-top">AST数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit17</td>
-							<td class="tableblock halign-left valign-top">AST计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i17m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组AST的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i17sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组AST的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c17m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组AST的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c17sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组AST的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i17m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组AST的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i17sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组AST的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c17m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组AST的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c17sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组AST的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">outc18</td>
-							<td class="tableblock halign-left valign-top">GGT</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">ggtu</td>
-							<td class="tableblock halign-left valign-top">GGT数值类型</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">unit18</td>
-							<td class="tableblock halign-left valign-top">GGT计量单位</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i18m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组GGT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i18sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组GGT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c18m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组GGT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c18sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组GGT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i18m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组GGT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i18sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组GGT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c18m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组GGT的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c18sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组GGT的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">lfr</td>
-							<td class="tableblock halign-left valign-top">LH/FSH比值</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i19m1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组LH/FSH比值的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i19sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前治疗组LH/FSH比值的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c19m1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组LH/FSH比值的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c19sd1</td>
-							<td class="tableblock halign-left valign-top">治疗前对照组LH/FSH比值的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i19m2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组LH/FSH比值的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">i19sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后治疗组LH/FSH比值的标准差</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c19m2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组LH/FSH比值的均数</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">c19sd2</td>
-							<td class="tableblock halign-left valign-top">治疗后对照组LH/FSH比值的标准差</td>
-						</tr>
-						
+						<tbody>
+					
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>1</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>空腹血糖</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>2</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>餐后2h血糖</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>3</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>糖化血红蛋白</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>4</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>体重指数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>5</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>甘油三酯</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>6</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>总胆固醇</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>7</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>低密度脂蛋白</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>8</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>高密度脂蛋白</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>9</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>空腹胰岛素水平</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>10</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>胰岛素抵抗指数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>11</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>胰岛素敏感指数</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>12</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>空腹0hCP</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+							<tr>
+								<td class="tableblock halign-left valign-top">
+									<p>13</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>…</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+								<td class="tableblock halign-left valign-top">
+									<p>&nbsp;</p>
+								</td>
+							</tr>
+						</tbody>
 					</table>
-
-
+						
+						
+						
+					
 				</div>
 			
 				<div class="sect3">
