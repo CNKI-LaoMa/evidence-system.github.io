@@ -1931,9 +1931,7 @@
 								<p>Y</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>VARCHAR
-									(1,
-									20)</p>
+								<p>VARCHAR(1,20)</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>#标准化</p>
@@ -1953,9 +1951,7 @@
 								<p>Y</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>VARCHAR
-									(1,
-									10)</p>
+								<p>VARCHAR(1,10)</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>&nbsp;</p>
@@ -1966,7 +1962,7 @@
 								<p>3</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>观察时间</p>
+								<p>治疗时间</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>period</p>
@@ -2006,7 +2002,7 @@
 								<p>5</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>观察例数</p>
+								<p>治疗例数</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>obv_total</p>
@@ -2026,7 +2022,7 @@
 								<p>6</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>观察事件数</p>
+								<p>治疗事件数</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>obv_event</p>
@@ -2046,10 +2042,10 @@
 								<p>7</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>观察均值</p>
+								<p>治疗组治疗前均值</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>obv_mean</p>
+								<p>obv_before_mean</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>Y</p>
@@ -2066,10 +2062,10 @@
 								<p>8</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>观察标准差</p>
+								<p>治疗组治疗后均值</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
-								<p>obv_sd</p>
+								<p>obv_after_mean</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>Y</p>
@@ -2084,6 +2080,46 @@
 						<tr>
 							<td class="tableblock halign-left valign-top">
 								<p>9</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>治疗组治疗前标准差</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>obv_before_sd</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>Y</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>DECIMAL</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>10</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>治疗组治疗后标准差</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>obv_after_sd</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>Y</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>DECIMAL</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>11</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>对照例数</p>
@@ -2103,7 +2139,7 @@
 						</tr>
 						<tr>
 							<td class="tableblock halign-left valign-top">
-								<p>10</p>
+								<p>12</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>对照事件数</p>
@@ -2123,47 +2159,87 @@
 						</tr>
 						<tr>
 							<td class="tableblock halign-left valign-top">
-								<p>11</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>对照均值</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>ctl_mean</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>Y</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>DECIMAL</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>&nbsp;</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">
-								<p>12</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>对照标准差</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>ctl_sd</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>Y</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>DECIMAL</p>
-							</td>
-							<td class="tableblock halign-left valign-top">
-								<p>&nbsp;</p>
-							</td>
-						</tr>
-						<tr>
-							<td class="tableblock halign-left valign-top">
 								<p>13</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>对照组治疗前均值</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>ctl_before_mean</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>Y</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>DECIMAL</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>14</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>对照组治疗后均值</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>ctl_after_mean</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>Y</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>DECIMAL</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>15</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>对照组治疗前标准差</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>ctl_before_sd</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>Y</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>DECIMAL</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>15</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>对照组治疗后标准差</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>ctl_after_sd</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>Y</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>DECIMAL</p>
+							</td>
+							<td class="tableblock halign-left valign-top">
+								<p>&nbsp;</p>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableblock halign-left valign-top">
+								<p>16</p>
 							</td>
 							<td class="tableblock halign-left valign-top">
 								<p>指标说明</p>
